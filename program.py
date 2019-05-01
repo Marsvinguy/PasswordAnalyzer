@@ -18,19 +18,33 @@ def findchars():
                     if not char.isdigit():
                         if char not in chars:
                             chars = chars + char
-        print chars
+        print(chars)
 
 def calcEntropy():
 
-    symbols = 143
+    symbols = 1114111
     file = open("rockyou.txt", "r")
+    wr = open("entropyRockyouUTF.txt", "a")
     for row in file:
+        #index = row.find(":")
+        #s = row[index+1:]
+        #pwds = s.rsplit()
+        #pwd = pwds[0]
+        #length = len(pwd)
         length = len(row)
-        entropy = math.log(math.pow(symbols, length),2)
-        data = str(length) + ":" + str(entropy)
-        wr = open("entropy.txt", "a")
-        wr.write(data)
-    print "Done!"
+        try:
+            power = math.pow(symbols, length)
+            entropy = math.log(power, 2)
+            data = str(length) + ":" + str(entropy) + "\n"
+            wr.write(data)
+        except Exception as e:
+            print("failed")
+            entropy = length * math.log(symbols, 2)
+            data = str(length) + ":" + str(entropy) + "\n"
+            wr.write(data)
+
+
+    print("Done!")
 
 
 
